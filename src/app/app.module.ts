@@ -3,12 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 
+import { IonicModule } from '@ionic/angular';
+
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    IonicModule.forRoot({})
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ionic-angular-universal-example",
+            "outputPath": "dist/ionic-angular-universal-example/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -91,6 +91,59 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/ionic-angular-universal-example/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "ionic-angular-universal-example:build:development",
+              "serverTarget": "ionic-angular-universal-example:server:development"
+            },
+            "production": {
+              "browserTarget": "ionic-angular-universal-example:build:production",
+              "serverTarget": "ionic-angular-universal-example:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ionic-angular-universal-example:build:production",
+              "serverTarget": "ionic-angular-universal-example:server:production"
+            },
+            "development": {
+              "browserTarget": "ionic-angular-universal-example:build:development",
+              "serverTarget": "ionic-angular-universal-example:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
